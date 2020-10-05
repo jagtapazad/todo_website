@@ -1,6 +1,6 @@
 import React from "react";
 
-const Main = (logout) => {
+const Main = ({logout}) => {
   return (
     <section className="hero">
       <nav>
