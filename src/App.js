@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import fire from "./.config/fire";
+import fire from "./config/fire";
 import Login from "./Login";
 import Main from "./Main";
 
