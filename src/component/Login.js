@@ -37,21 +37,21 @@ const Login = (props) => {
         <p className="errorMsg">{passerr}</p>
         <div className="btnContainer">
           {hasacc ? (
-          <>
-            <button onClick={dologin}>Sign In</button>
-            <p>
-              Don't Have an Account?
-              <span onClick={() => sethasacc(!hasacc)}>Sign Up</span>
-            </p>
-          </>
+            <>
+              <button onClick={dosignup}>Sign Up</button>
+              <p>
+                Already Have an Account?
+                <span onClick={() => sethasacc(!hasacc)}>Sign In!</span>
+              </p>
+            </>
           ) : (
-          <>
-            <button onClick={dosignup}>Sign Up!</button>
-            <p>
-              Already Have an Account?
-              <span onClick={() => sethasacc(!hasacc)}>Sign In</span>
-            </p>
-          </>
+            <>
+              <button onClick={dologin}>Sign In</button>
+              <p>
+                Don't Have an Account?
+                <span onClick={() => sethasacc(!hasacc)}>Sign Up!</span>
+              </p>
+            </>
           )}
         </div>
       </div>
