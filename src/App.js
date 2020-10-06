@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import fire from "./config/fire";
-import Login from "./Login";
-import Main from "./Main";
+import Login from "./component/Login";
+import Main from "./component/Main";
 
 const App = () => {
   const [user, setuser] = useState("");
