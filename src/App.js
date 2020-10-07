@@ -22,6 +22,10 @@ const App = () => {
     setpasserror("");
   };
 
+  const logout = () => {
+    fire.auth().signOut();
+  };
+
   const dologin = () => {
     clrerr();
     fire
@@ -65,10 +69,6 @@ const App = () => {
       });
   };
 
-  const logout = () => {
-    fire.auth().signOut();
-  };
-
   const authuser = () => {
     fire.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -87,7 +87,7 @@ const App = () => {
   return (
     <div className="App">
       {user ? (
-        <Main logout={logout} />
+        <Main logout={logout}/>
       ) : (
         <Login
           email={email}

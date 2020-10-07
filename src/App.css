@@ -85,13 +85,13 @@ button {
   font-size: 16px;
 }
 
-.hero {
+.main {
   width: 100%;
   min-height: 100vh;
   background: #fff;
 }
 
-.hero nav {
+.main nav {
   background: rgb(10, 101, 104);
   width: 100%;
   padding: 20px 40px;
@@ -100,11 +100,11 @@ button {
   justify-content: space-between;
 }
 
-.hero nav h2 {
+.main nav h2 {
   color: #fff;
 }
 
-.hero nav button {
+.main nav button {
   width: 86px;
   padding: 8px 0;
   background:#3ba1bb;
