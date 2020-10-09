@@ -21,6 +21,7 @@ const App = () => {
     setemailerror("");
     setpasserror("");
   };
+  // console.log(setemailerror)
 
   const logout = () => {
     fire.auth().signOut();
@@ -32,19 +33,19 @@ const App = () => {
       .auth()
       .signInWithEmailAndPassword(email, pass)
       .catch((err) => {
-        // eslint-disable-next-line default-case
         switch (err.code) {
           case "auth/invalid-email":
           case "auth/user-disabled":
-          case "auth/user-not-found": {
+          case "auth/user-not-found":
             setemailerror(err.message);
             break;
-          }
-          case "auth/wrong-password": {
+          case "auth/wrong-password":
             setpasserror(err.message);
             break;
-          }
+          default:
         }
+        // console.log();
+        // console.log(err);
       });
   };
 
@@ -54,7 +55,6 @@ const App = () => {
       .auth()
       .createUserWithEmailAndPassword(email, pass)
       .catch((err) => {
-        // eslint-disable-next-line default-case
         switch (err.code) {
           case "auth/email-already-in-use":
           case "auth/invalid-email": {
@@ -65,7 +65,10 @@ const App = () => {
             setpasserror(err.message);
             break;
           }
+          default: {
+          }
         }
+        // console.log(setemailerror);
       });
   };
 
@@ -87,7 +90,7 @@ const App = () => {
   return (
     <div className="App">
       {user ? (
-        <Main logout={logout}/>
+        <Main logout={logout} />
       ) : (
         <Login
           email={email}

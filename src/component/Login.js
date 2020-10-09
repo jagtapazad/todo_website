@@ -10,9 +10,11 @@ const Login = (props) => {
     dosignup,
     hasacc,
     sethasacc,
-    emailerr,
-    passerr,
+    emailerror,
+    passerror,
   } = props;
+
+  // console.log(emailerror);
 
   return (
     <section className="login">
@@ -25,7 +27,7 @@ const Login = (props) => {
           value={email}
           onChange={(e) => setemail(e.target.value)}
         />
-        <p className="errorMsg">{emailerr}</p>
+        <p className="errorMsg">{emailerror}</p>
         <label>Password</label>
         <input
           type="password"
@@ -34,7 +36,7 @@ const Login = (props) => {
           value={pass}
           onChange={(e) => setpass(e.target.value)}
         />
-        <p className="errorMsg">{passerr}</p>
+        <p className="errorMsg">{passerror}</p>
         <div className="btnContainer">
           {hasacc ? (
             <>
