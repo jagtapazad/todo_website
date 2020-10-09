@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import fire from "../config/fire";
+// import fire from "../config/fire";
 import TodoInput from "./TodoInput";
 import TodoList from "./TodoList";
 
-import uuid from "uuid";
+import { v1 as uuid } from "uuid";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 class Main extends Component {
@@ -22,6 +22,49 @@ class Main extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+
+    const newItem = {
+      id: this.state.id,
+      title: this.state.item,
+    };
+    console.log(newItem);
+
+    const updatedItems = [...this.state.items, newItem];
+
+    this.setState({
+      items: updatedItems,
+      item: "",
+      id: uuid(),
+      editItem: false,
+    });
+  };
+
+  handleDelete = (id) => {
+    const filteredItems = this.state.items.filter((item) => item.id !== id);
+    this.setState({
+      items: filteredItems,
+    });
+  };
+
+  clearList = () => {
+    this.setState({
+      items: [],
+    });
+  };
+
+  handleEdit = (id) => {
+    const filteredItems = this.state.items.filter((item) => item.id !== id);
+
+    const selectedItem = this.state.items.find((item) => item.id === id);
+
+    console.log(selectedItem);
+
+    this.setState({
+      items: filteredItems,
+      item: selectedItem.title,
+      editItem: true,
+      id: id,
+    });
   };
 
   render() {
@@ -38,10 +81,16 @@ class Main extends Component {
               <h2 className="text-capitalize text-center"> todo input</h2>
               <TodoInput
                 item={this.state.item}
-                handleChange={this.state.handleChange}
-                handleSubmit={this.state.handleSubmit}
+                handleChange={this.handleChange}
+                handleSubmit={this.handleSubmit}
+                editItem={this.handleEdit}
               />
-              <TodoList />
+              <TodoList
+                items={this.state.items}
+                clearList={this.clearList}
+                handleDelete={this.handleDelete}
+                handleEdit={this.handleEdit}
+              />
             </div>
           </div>
         </div>
@@ -49,16 +98,4 @@ class Main extends Component {
     );
   }
 }
-
-// const Main = ({ logout }) => {
-//   return (
-//     <section className="hero">
-//       <nav>
-//         <h2>SAELOUN | TODO APP</h2>
-//         <button onClick={logout}>Logout</button>
-//       </nav>
-//     </section>
-//   );
-// };
-
 export default Main;
