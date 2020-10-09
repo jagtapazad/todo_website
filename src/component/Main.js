@@ -9,7 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 class Main extends Component {
   state = {
     items: [],
-    id: 0,
+    id: uuid(),
     item: "",
     editItem: false,
   };
@@ -78,7 +78,6 @@ class Main extends Component {
         <div className="container">
           <div className="row">
             <div className="col-10 mx-auto col-md-8 mt-4">
-              <h2 className="text-capitalize text-center"> todo input</h2>
               <TodoInput
                 item={this.state.item}
                 handleChange={this.handleChange}
