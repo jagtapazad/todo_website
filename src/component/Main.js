@@ -27,7 +27,7 @@ class Main extends Component {
       id: this.state.id,
       title: this.state.item,
     };
-    console.log(newItem);
+    // console.log(newItem);
 
     const updatedItems = [...this.state.items, newItem];
 
@@ -37,6 +37,9 @@ class Main extends Component {
       id: uuid(),
       editItem: false,
     });
+    // this.setState({
+    //   item: "",
+    // });
   };
 
   handleDelete = (id) => {
@@ -82,7 +85,7 @@ class Main extends Component {
                 item={this.state.item}
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
-                editItem={this.handleEdit}
+                editItem={this.state.editItem}
               />
               <TodoList
                 items={this.state.items}
