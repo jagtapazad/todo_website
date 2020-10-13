@@ -1,9 +1,31 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import DatePicker from "react-datepicker";
+import "./Main.css";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 export default class TodoInput extends Component {
+  state = {
+    selectedDate: new Date(),
+  };
+
+  onDateChange = (e) => {
+    this.setState({
+      selectedDate: e,
+    });
+    console.log(this.state.selectedDate);
+  };
+
   render() {
-    const { item, handleChange, handleSubmit, editItem } = this.props;
+    const {
+      item,
+      date,
+      handleDate,
+      handleChange,
+      handleSubmit,
+      editItem,
+    } = this.props;
 
     return (
       <div className="card card-body my-3">
@@ -17,7 +39,9 @@ export default class TodoInput extends Component {
                     : "input-group-text bg-success text-white"
                 }
               >
-                <i className={ !editItem ? "fas fa-plus-circle" : "fas fa-pen"} />
+                <i
+                  className={!editItem ? "fas fa-plus-circle" : "fas fa-pen"}
+                />
               </div>
             </div>
             <input
@@ -25,19 +49,27 @@ export default class TodoInput extends Component {
               className="form-control text-capitalize mr-2"
               placeholder="add a todo item"
               value={item}
-              onChange={handleChange} ///value pe work
+              onChange={handleChange}
             />
-            {/* <input type="datetime" name="a" id="aa"/>  */}
 
-            <div className="input-group-append">
-              <button
-                className="btn bg-warning"
+            <div>
+              <DatePicker
+                className="btn btn-block btn-warning"
+                id="inputID"
                 type="button"
-                id="button-addon2"
-              >
-                Set Deadline
-              </button>
+                selected={date}
+                placeholderText="Set Deadline"
+                Value={date}
+                onChange={handleDate}
+                timeInputLabel="Time:"
+                minDate={new Date()}
+                dateFormat="MM/dd/yyyy h:mm aa"
+                showTimeInput
+                shouldCloseOnSelect={false}
+                withPortal
+              />
             </div>
+            {console.log()}
           </div>
 
           <button
