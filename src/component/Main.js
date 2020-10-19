@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import fire from "../config/fire";
+import fire from "../config/fire";
 import TodoInput from "./TodoInput";
 import TodoList from "./TodoList";
 
@@ -16,11 +16,40 @@ class Main extends Component {
     date: new Date(),
   };
 
+  componentDidMount = async () => {
+    var user = fire.auth().currentUser;
+    var FBItems = [];
+
+    await fire
+      .firestore()
+      .collection(user.uid)
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          // doc.data() is never undefined for query doc snapshots
+          // FBItems = [doc.data(), ...this.state.items];
+          var newItem = {
+            id: doc.data().id,
+            title: doc.data().title,
+            rank: doc.data().rank,
+            date: new Date(doc.data().date),
+          };
+          FBItems = [newItem, ...FBItems];
+          FBItems.sort((a, b) => a.rank - b.rank);
+        });
+      });
+    console.log(FBItems);
+    this.setState({
+      items: FBItems,
+    });
+  };
+
   handleChange = (e) => {
     this.setState({
       item: e.target.value,
     });
   };
+
   handleDate = (e) => {
     if (e.getHours() === 0 && e.getMinutes() === 0) {
     }
@@ -35,7 +64,7 @@ class Main extends Component {
     });
 
     console.log(this.state.rank);
-    console.log(this.state.date);
+    console.log(this.state.date.toString());
   };
 
   handleSubmit = (e) => {
@@ -50,14 +79,24 @@ class Main extends Component {
         rank: this.state.rank,
         date: this.state.date,
       };
+
+      const newItemFB = {
+        id: this.state.id,
+        title: this.state.item,
+        rank: this.state.rank,
+        date: this.state.date.toString(),
+      };
+
+      console.log(this.state.date.toString());
+
+      var user = fire.auth().currentUser;
+
       console.log(newItem);
 
       const updatedItems = [newItem, ...this.state.items];
-      console.log(updatedItems);
       updatedItems.sort((a, b) => a.rank - b.rank);
-      console.log(updatedItems);
 
-      console.log(this.state.rank);
+      fire.firestore().collection(user.uid).doc(newItem.id).set(newItemFB);
 
       this.setState({
         items: updatedItems,
@@ -68,27 +107,30 @@ class Main extends Component {
         date: new Date(),
       });
     }
-
-    // this.setState({
-    //   item: "",
-    // });
   };
 
   handleDelete = (id) => {
+    var user = fire.auth().currentUser;
     const filteredItems = this.state.items.filter((item) => item.id !== id);
+    const selectedItem = this.state.items.find((item) => item.id === id);
     this.setState({
       items: filteredItems,
     });
+    fire.firestore().collection(user.uid).doc(selectedItem.id).delete();
   };
 
   clearList = () => {
+    var user = fire.auth().currentUser;
     alert("Proceed to Clear List?");
     this.setState({
       items: [],
     });
+
+    fire.firestore().collection(user.uid).delete();
   };
 
   handleEdit = (id) => {
+    var user = fire.auth().currentUser;
     const filteredItems = this.state.items.filter((item) => item.id !== id);
     const selectedItem = this.state.items.find((item) => item.id === id);
 
@@ -104,6 +146,7 @@ class Main extends Component {
       date: selectedItem.date,
     });
 
+    fire.firestore().collection(user.uid).doc(selectedItem.id).delete();
     // console.log(this.state.items[0].rank);
     // console.log(this.state.items[0] + 1);
   };
@@ -135,7 +178,7 @@ class Main extends Component {
       item: "",
       id: id,
       rank: selectedItem.rank,
-      date: selectedItem.date,
+      date: selectedItem.date,             //todo:: figure out date problem/////
     });
 
     // console.log(this.state.items[1].rank)
