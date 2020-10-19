@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import DatePicker from "react-datepicker";
 import "./Main.css";
@@ -63,7 +63,7 @@ export default class TodoInput extends Component {
                 onChange={handleDate}
                 timeInputLabel="Time:"
                 minDate={new Date()}
-                dateFormat="MM/dd/yyyy h:mm aa"
+                dateFormat="dd/MM/yyyy h:mm aa"
                 showTimeInput
                 shouldCloseOnSelect={false}
                 withPortal

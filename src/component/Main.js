@@ -2,7 +2,6 @@ import React, { Component } from "react";
 // import fire from "../config/fire";
 import TodoInput from "./TodoInput";
 import TodoList from "./TodoList";
-import DatePicker from "react-datepicker";
 
 import { v1 as uuid } from "uuid";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -91,11 +90,10 @@ class Main extends Component {
 
   handleEdit = (id) => {
     const filteredItems = this.state.items.filter((item) => item.id !== id);
-
     const selectedItem = this.state.items.find((item) => item.id === id);
 
-    console.log(this.state.selectedItem);
-    console.log(this.state.items);
+    // console.log(this.state.selectedItem);
+    console.log(this.state.items.length);
 
     this.setState({
       items: filteredItems,
@@ -103,8 +101,77 @@ class Main extends Component {
       editItem: true,
       id: id,
       rank: selectedItem.rank,
-      date: selectedItem.date
+      date: selectedItem.date,
     });
+
+    // console.log(this.state.items[0].rank);
+    // console.log(this.state.items[0] + 1);
+  };
+
+  handleUp = (id) => {
+    const filteredItems = this.state.items;
+    const selectedItem = this.state.items.find((item) => item.id === id);
+
+    let flag = 0;
+    for (let i = 0; i < this.state.items.length; i++) {
+      if (selectedItem.id === this.state.items[i].id) {
+        flag = i;
+      }
+    }
+
+    if (flag !== 0) {
+      let itemrank = selectedItem.rank;
+      selectedItem.rank = filteredItems[flag - 1].rank;
+      filteredItems[flag - 1].rank = itemrank;
+
+      filteredItems.sort((a, b) => a.rank - b.rank);
+    }
+
+    // console.log(filteredItems[flag-1]);
+    // console.log(this.state.items);
+
+    this.setState({
+      items: filteredItems,
+      item: "",
+      id: id,
+      rank: selectedItem.rank,
+      date: selectedItem.date,
+    });
+
+    // console.log(this.state.items[1].rank)
+  };
+
+  handleDown = (id) => {
+    const filteredItems = this.state.items;
+    const selectedItem = this.state.items.find((item) => item.id === id);
+
+    let flag = 0;
+    for (let i = 0; i < this.state.items.length; i++) {
+      if (selectedItem.id === this.state.items[i].id) {
+        flag = i;
+      }
+    }
+
+    if (flag !== this.state.items.length - 1) {
+      let itemrank = selectedItem.rank;
+      selectedItem.rank = filteredItems[flag + 1].rank;
+      filteredItems[flag + 1].rank = itemrank;
+
+      filteredItems.sort((a, b) => a.rank - b.rank);
+    }
+
+    // console.log(filteredItems[flag-1]);
+    // console.log(this.state.items);
+
+    this.setState({
+      items: filteredItems,
+      item: "",
+      id: id,
+      rank: selectedItem.rank,
+      date: selectedItem.date,
+    });
+
+    // console.log(this.state.items[1].rank)
   };
 
   render() {
@@ -131,6 +198,8 @@ class Main extends Component {
                 clearList={this.clearList}
                 handleDelete={this.handleDelete}
                 handleEdit={this.handleEdit}
+                handleUp={this.handleUp}
+                handleDown={this.handleDown}
               />
             </div>
           </div>

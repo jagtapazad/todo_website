@@ -85,7 +85,7 @@ const App = () => {
 
   useEffect(() => {
     authuser();
-  }, []);
+  });
 
   return (
     <div className="App">

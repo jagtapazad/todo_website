@@ -10,7 +10,7 @@ export default class TodoItem extends Component {
   };
 
   render() {
-    const {title, handleDelete, handleEdit} = this.props;
+    const {title, handleDelete, handleEdit, handleUp, handleDown} = this.props;
     return (
       
       <li className="list-group-item text capitalize d-flex justify-content-between my-2">
@@ -24,10 +24,10 @@ export default class TodoItem extends Component {
           </span>
 
           <span className="mx-1 text-dark">
-            <i className="fas fa-chevron-circle-up" />
+            <i className="fas fa-chevron-circle-up" onClick={handleUp}/>
           </span>
           <span className="mr-1 text-dark">
-            <i className="fas fa-chevron-circle-down" />
+            <i className="fas fa-chevron-circle-down" onClick={handleDown}/>
           </span>
         </div>
       </li>
