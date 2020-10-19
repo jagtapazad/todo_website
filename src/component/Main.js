@@ -152,6 +152,9 @@ class Main extends Component {
   };
 
   handleUp = (id) => {
+    var user = fire.auth().currentUser;
+    var db = fire.firestore().collection(user.uid);
+
     const filteredItems = this.state.items;
     const selectedItem = this.state.items.find((item) => item.id === id);
 
@@ -164,6 +167,14 @@ class Main extends Component {
 
     if (flag !== 0) {
       let itemrank = selectedItem.rank;
+      
+      db.doc(selectedItem.id).update({
+        rank: filteredItems[flag - 1].rank
+      });
+      db.doc(filteredItems[flag - 1].id).update({
+        rank: itemrank
+      });
+
       selectedItem.rank = filteredItems[flag - 1].rank;
       filteredItems[flag - 1].rank = itemrank;
 
@@ -178,13 +189,16 @@ class Main extends Component {
       item: "",
       id: id,
       rank: selectedItem.rank,
-      date: selectedItem.date,             //todo:: figure out date problem/////
+      date: selectedItem.date, //todo:: figure out date problem/////
     });
 
     // console.log(this.state.items[1].rank)
   };
 
   handleDown = (id) => {
+    var user = fire.auth().currentUser;
+    var db = fire.firestore().collection(user.uid);
+
     const filteredItems = this.state.items;
     const selectedItem = this.state.items.find((item) => item.id === id);
 
@@ -197,6 +211,14 @@ class Main extends Component {
 
     if (flag !== this.state.items.length - 1) {
       let itemrank = selectedItem.rank;
+
+      db.doc(selectedItem.id).update({
+        rank: filteredItems[flag + 1].rank
+      });
+      db.doc(filteredItems[flag + 1].id).update({
+        rank: itemrank
+      });
+
       selectedItem.rank = filteredItems[flag + 1].rank;
       filteredItems[flag + 1].rank = itemrank;
 
