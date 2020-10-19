@@ -88,11 +88,13 @@ button {
 .main {
   width: 100%;
   min-height: 100vh;
-  background: #fff;
+  background-image: url("https://wallpapers.gg/wp-content/uploads/2017/10/Green-Galaxy-6K-2560x1440.jpg");
+  background-color: #cccccc;
 }
 
 .main nav {
-  background: rgb(10, 101, 104);
+  background-image: url("https://wallpapers.gg/wp-content/uploads/2017/10/Green-Galaxy-6K-2560x1440.jpg");
+  background-color: #cccccc;
   width: 100%;
   padding: 20px 40px;
   display: flex;
@@ -107,5 +109,5 @@ button {
 .main nav button {
   width: 86px;
   padding: 8px 0;
-  background:#3ba1bb;
+  background: rgb(10, 101, 104);
 }
