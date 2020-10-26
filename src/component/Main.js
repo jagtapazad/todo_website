@@ -126,7 +126,7 @@ class Main extends Component {
       items: [],
     });
 
-    fire.firestore().collection(user.uid).delete();
+    // fire.firestore().collection(user.uid).delete();
   };
 
   handleEdit = (id) => {
